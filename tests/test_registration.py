@@ -1,19 +1,17 @@
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.wait import WebDriverWait
 from locators import Locators
-from actions import Actions
 
 
 class TestRegistration:
-    def test_registration_valid_creds_success(self, driver_main):
-        self.actions = Actions()
+    def test_registration_valid_creds_success(self, driver_main, actions):
         driver = driver_main
         driver.find_element(*Locators.SIGN_IN_BUTTON).click()
         register_link = WebDriverWait(driver, 5).until(
             ec.element_to_be_clickable(Locators.REGISTER_LINK)
         )
         register_link.click()
-        name, email, password = self.actions.generate_random_credentials()
+        name, email, password = actions.generate_random_credentials()
         driver.find_element(*Locators.NAME_INPUT).send_keys(name)
         driver.find_element(*Locators.EMAIL_INPUT).send_keys(email)
         driver.find_element(*Locators.PASSWORD_INPUT).send_keys(password)
@@ -31,10 +29,9 @@ class TestRegistration:
             ec.visibility_of_element_located(Locators.ORDER_BUTTON)
         )
 
-    def test_registration_short_password_error(self, driver_registration):
-        self.actions = Actions()
+    def test_registration_short_password_error(self, driver_registration, actions):
         driver, registration_page_url = driver_registration
-        name, email, password = self.actions.generate_short_password_credentials()
+        name, email, password = actions.generate_short_password_credentials()
         driver.find_element(*Locators.NAME_INPUT).send_keys(name)
         driver.find_element(*Locators.EMAIL_INPUT).send_keys(email)
         driver.find_element(*Locators.PASSWORD_INPUT).send_keys(password)
@@ -47,10 +44,9 @@ class TestRegistration:
         )
         assert error_message.is_displayed()
 
-    def test_registration_empty_name_error(self, driver_registration):
-        self.actions = Actions()
+    def test_registration_empty_name_error(self, driver_registration, actions):
         driver, registration_page_url = driver_registration
-        name, email, password = self.actions.generate_random_credentials()
+        name, email, password = actions.generate_random_credentials()
         driver.find_element(*Locators.EMAIL_INPUT).send_keys(email)
         driver.find_element(*Locators.PASSWORD_INPUT).send_keys(password)
         register_button = WebDriverWait(driver, 5).until(
@@ -59,10 +55,9 @@ class TestRegistration:
         register_button.click()
         assert driver.current_url == registration_page_url
 
-    def test_registration_invalid_email_error(self, driver_registration):
-        self.actions = Actions()
+    def test_registration_invalid_email_error(self, driver_registration, actions):
         driver, registration_page_url = driver_registration
-        name, email, password = self.actions.generate_invalid_email_credentials()
+        name, email, password = actions.generate_invalid_email_credentials()
         driver.find_element(*Locators.NAME_INPUT).send_keys(name)
         driver.find_element(*Locators.EMAIL_INPUT).send_keys(email)
         driver.find_element(*Locators.PASSWORD_INPUT).send_keys(password)

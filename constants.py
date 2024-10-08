@@ -1,4 +1,6 @@
 # переменные с url разных страниц сервиса
-MAIN_PAGE_URL = "https://stellarburgers.nomoreparties.site/"
-REGISTRATION_PAGE_URL = "https://stellarburgers.nomoreparties.site/register"
-LOGIN_PAGE_URL = "https://stellarburgers.nomoreparties.site/login"
+BASE_URL = "https://stellarburgers.nomoreparties.site"
+
+MAIN_PAGE_URL = f"{BASE_URL}/"
+REGISTRATION_PAGE_URL = f"{BASE_URL}/register"
+LOGIN_PAGE_URL = f"{BASE_URL}/login"

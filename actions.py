@@ -1,6 +1,5 @@
 import random
 import string
-
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.wait import WebDriverWait
 from locators import Locators
@@ -28,7 +27,6 @@ class Actions:
         return name, email, password
 
     def valid_credentials_log_in(self, driver):
-        driver = driver
         driver.get("https://stellarburgers.nomoreparties.site/login")
         email = "anton_samoilov_14_123@yandex.ru"
         password = "14123!"
@@ -47,4 +45,3 @@ class Actions:
             ec.element_to_be_clickable(Locators.PROFILE_BUTTON_MAIN)
         )
         profile_button.click()
-
